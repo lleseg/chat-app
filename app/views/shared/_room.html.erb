@@ -1,1 +1,6 @@
-<div class="text-white font-semibold"><%= room.name %></div>
+<%= turbo_frame_tag "room_#{room.id}" do %>
+  <div class="text-white font-semibold">
+    <%= room.name %>
+    <%= link_to 'Edit room', edit_room_path(room) %>
+  </div>
+<% end %>
