@@ -1,27 +1,9 @@
-<main class="flex w-full h-screen bg-slate-800">
-  <%= render 'shared/sidebar' %>
-  <% content_for :title, "Rooms" %>
-  <div class="w-full">
-    <% if notice.present? %>
-      <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
-    <% end %>
-    <div class="flex justify-between items-center">
-      <h1 class="font-bold text-4xl">Rooms</h1>
-    </div>
     <%= turbo_frame_tag 'rooms_controller' do %>
+  <main class="flex w-full h-screen bg-slate-800">
+    <%= render 'shared/sidebar' %>
+    <section class="flex flex-col items-center justify-center gap-5 h-screen">
       <%= link_to "New room", new_room_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
-    <% end %>
-    <div id="rooms" class="min-w-full">
-      <% if @rooms.any? %>
-        <% @rooms.each do |room| %>
-          <%= render room %>
-          <p>
-            <%= link_to "Show this room", room, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-          </p>
-        <% end %>
-      <% else %>
-        <p class="text-center my-10">No rooms found.</p>
-      <% end %>
-    </div>
-  </div>
+    </section>
+  </p>
 </main>
+<% end %>
