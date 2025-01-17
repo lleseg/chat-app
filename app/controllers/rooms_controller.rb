@@ -25,7 +25,7 @@ class RoomsController < ApplicationController
     respond_to do |format|
       if @room.save
         format.turbo_stream do
-          render turbo_stream: turbo_stream.append('rooms', partial: 'shared/room', locals: { room: @room })
+          render turbo_stream: turbo_stream.append('room', partial: 'shared/room', locals: { room: @room })
         end
       else
         format.turbo_stream do
@@ -36,7 +36,17 @@ class RoomsController < ApplicationController
   end
 
   # PATCH/PUT /rooms/1 or /rooms/1.json
-  def update; end
+  def update
+    respond_to do |format|
+      if @room.update room_params
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace("room_#{@room.id}", partial: 'shared/room', locals: { room: @room })
+        end
+      else
+        format.html { render :edit }
+      end
+    end
+  end
 
   # DELETE /rooms/1 or /rooms/1.json
   def destroy
