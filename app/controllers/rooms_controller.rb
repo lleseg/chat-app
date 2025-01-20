@@ -54,6 +54,17 @@ class RoomsController < ApplicationController
     @room.destroy!
   end
 
+  def add_user
+    UserRoom.create(room_id: params[:room_id], user_id: params[:user_id])
+
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace("room_show_#{params[:room_id]}", partial: 'rooms/room',
+                                                                                   locals: { room: Room.find(params[:room_id]) })
+      end
+    end
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
