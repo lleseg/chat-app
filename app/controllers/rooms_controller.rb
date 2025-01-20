@@ -24,6 +24,7 @@ class RoomsController < ApplicationController
 
     respond_to do |format|
       if @room.save
+        UserRoom.create(room: @room, user: current_user)
         format.turbo_stream do
           render turbo_stream: turbo_stream.append('room', partial: 'shared/room', locals: { room: @room })
         end
