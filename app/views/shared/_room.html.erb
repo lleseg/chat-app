@@ -1,6 +1,8 @@
 <%= turbo_frame_tag "room_#{room.id}" do %>
   <div class="text-white font-semibold">
-    <%= room.name %>
+    <%= link_to room_path(room), class: 'font-semibold text-white text-sm', data: { turbo_frame: 'rooms_controller' } do %>
+      <%= room.name %>
+    <% end %>
     <%= link_to 'Edit room', edit_room_path(room) %>
   </div>
 <% end %>

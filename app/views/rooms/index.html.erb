@@ -1,9 +1,10 @@
-    <%= turbo_frame_tag 'rooms_controller' do %>
+<%= turbo_frame_tag 'rooms_controller' do %>
   <main class="flex w-full h-screen bg-slate-800">
     <%= render 'shared/sidebar' %>
-    <section class="flex flex-col items-center justify-center gap-5 h-screen">
-      <%= link_to "New room", new_room_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
+    <section class="flex flex-col items-center justify-center gap-5 h-screen w-full">
+      <%= image_tag('chat.png', width: 100) %>
+      <h1 class="font-bold text-4xl text-white my-4">Chat App built with Ruby</h1>
+      <p class="text-center font-semibold text-white">This is an app created that uses RoR</p>
     </section>
-  </p>
-</main>
+  </main>
 <% end %>
