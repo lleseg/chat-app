@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RoomsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_room, only: %i[show edit update destroy]
@@ -26,11 +28,11 @@ class RoomsController < ApplicationController
       if @room.save
         UserRoom.create(room: @room, user: current_user)
         format.turbo_stream do
-          render turbo_stream: turbo_stream.append('room', partial: 'shared/room', locals: { room: @room })
+          render turbo_stream: turbo_stream.append("room", partial: "shared/room", locals: { room: @room })
         end
       else
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace('room_form', partial: 'rooms/form', locals: { room: @room })
+          render turbo_stream: turbo_stream.replace("room_form", partial: "rooms/form", locals: { room: @room })
         end
       end
     end
@@ -41,7 +43,7 @@ class RoomsController < ApplicationController
     respond_to do |format|
       if @room.update room_params
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace("room_#{@room.id}", partial: 'shared/room', locals: { room: @room })
+          render turbo_stream: turbo_stream.replace("room_#{@room.id}", partial: "shared/room", locals: { room: @room })
         end
       else
         format.html { render :edit }
@@ -59,7 +61,7 @@ class RoomsController < ApplicationController
 
     respond_to do |format|
       format.turbo_stream do
-        render turbo_stream: turbo_stream.replace("room_show_#{params[:room_id]}", partial: 'rooms/room',
+        render turbo_stream: turbo_stream.replace("room_show_#{params[:room_id]}", partial: "rooms/room",
                                                                                    locals: { room: Room.find(params[:room_id]) })
       end
     end
