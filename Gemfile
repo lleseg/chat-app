@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "3.3.0"
+ruby "3.4.11"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.5", ">= 7.1.5.1"
@@ -69,3 +69,5 @@ group :test do
 end
 
 gem "tailwindcss-rails", "~> 3.2"
+
+gem "rubocop", "~> 1.91", :group => :development
