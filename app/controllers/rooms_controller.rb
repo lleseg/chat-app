@@ -69,7 +69,9 @@ class RoomsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_room
-    @room = Room.find(params[:id])
+    @room = Room.find_by(id: params[:id])
+
+    redirect_to root_path unless @room
   end
 
   # Only allow a list of trusted parameters through.
