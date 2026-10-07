@@ -71,3 +71,5 @@ end
 gem "tailwindcss-rails", "~> 3.2"
 
 gem "rubocop", "~> 1.91", :group => :development
+
+gem "json", "< 3"
