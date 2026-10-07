@@ -4,5 +4,6 @@
       <%= room.name %>
     <% end %>
     <%= link_to 'Edit room', edit_room_path(room) %>
+    <%= button_to 'Delete', room_path(room), method: :delete, form: { data: { turbo_confirm: 'Delete this room?' } }, class: 'text-red-400 text-sm' %>
   </div>
 <% end %>

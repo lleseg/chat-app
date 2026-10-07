@@ -27,12 +27,10 @@ class RoomsController < ApplicationController
     respond_to do |format|
       if @room.save
         UserRoom.create(room: @room, user: current_user)
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.append("room", partial: "shared/room", locals: { room: @room })
-        end
+        format.turbo_stream
       else
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace("room_form", partial: "rooms/form", locals: { room: @room })
+          render turbo_stream: turbo_stream.update("room_form", partial: "rooms/form", locals: { room: @room })
         end
       end
     end

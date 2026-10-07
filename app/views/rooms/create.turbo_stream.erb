@@ -1,0 +1,2 @@
+<%= turbo_stream.append "rooms", partial: "shared/room", locals: { room: @room } %>
+<%= turbo_stream.replace "room_form", partial: "shared/create_room" %>
