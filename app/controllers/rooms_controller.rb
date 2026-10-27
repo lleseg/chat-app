@@ -41,7 +41,7 @@ class RoomsController < ApplicationController
     respond_to do |format|
       if @room.update room_params
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace("room_#{@room.id}", partial: "shared/room", locals: { room: @room })
+          render turbo_stream: turbo_stream.replace(@room, partial: "shared/room", locals: { room: @room })
         end
       else
         format.html { render :edit }
@@ -55,12 +55,12 @@ class RoomsController < ApplicationController
   end
 
   def add_user
-    UserRoom.create(room_id: params[:room_id], user_id: params[:user_id])
+    room = Room.find(params[:room_id])
+    UserRoom.create(room:, user_id: params[:user_id])
 
     respond_to do |format|
       format.turbo_stream do
-        render turbo_stream: turbo_stream.replace("room_show_#{params[:room_id]}", partial: "rooms/room",
-                                                                                   locals: { room: Room.find(params[:room_id]) })
+        render turbo_stream: turbo_stream.replace([room, :show], partial: "rooms/room", locals: { room: })
       end
     end
   end

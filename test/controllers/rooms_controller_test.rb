@@ -40,7 +40,7 @@ class RoomsControllerTest < ActionDispatch::IntegrationTest
 
   test "should update room" do
     patch room_url(@room), params: { room: { name: @room.name } }, as: :turbo_stream
-    assert_turbo_stream action: "replace", target: "room_#{@room.id}"
+    assert_turbo_stream action: "replace", target: dom_id(@room)
   end
 
   test "should destroy room" do
@@ -48,7 +48,7 @@ class RoomsControllerTest < ActionDispatch::IntegrationTest
       delete room_url(@room), as: :turbo_stream
     end
 
-    assert_turbo_stream action: "remove", target: "room_#{@room.id}"
-    assert_turbo_stream action: "remove", target: "room_show_#{@room.id}"
+    assert_turbo_stream action: "remove", target: dom_id(@room)
+    assert_turbo_stream action: "remove", target: dom_id(@room, :show)
   end
 end

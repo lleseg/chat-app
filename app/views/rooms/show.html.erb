@@ -1,4 +1,5 @@
 <%= turbo_frame_tag 'rooms_controller' do %>
+  <%= turbo_stream_from @room %>
   <main class="flex w-full h-screen bg-slate-800">
     <%= render 'shared/sidebar' %>
     <section class="w-full flex flex-col gap-5 h-screen px-5">

@@ -1,7 +1,6 @@
-<section class="flex flex-col gap-2 mt-10 items-center justify-center" id="room_show_<%= room.id %>">
+<section class="flex flex-col gap-2 mt-10 items-center justify-center" id="<%= dom_id(room, :show) %>">
   <div class="flex flex-col">
     <h3 class="font-bold text-3xl text-white"><%= room.name %> - Room</h3>
-    <span class="text-white font-semibold">Users in this room: </span>
   </div>
   <section class="flex gap-5">
     <div class="py-2 px-10 flex flex-col gap-1 items-center border-sky-600 border rounded-lg my-2 shadow-lg w-96">
