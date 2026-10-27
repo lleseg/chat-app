@@ -12,6 +12,9 @@
             <% end %>
           </div>
         </div>
+        <div class="flex flex-col w-5/6 items-center justify-center">
+          <%= render 'messages/form', { room: @room, message: Message.new } %>
+        </div>
       </div>
     </section>
   </main>
