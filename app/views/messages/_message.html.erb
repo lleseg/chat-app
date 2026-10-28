@@ -1,9 +1,9 @@
 <%= turbo_frame_tag message, class:"bg-gray-200 px-3 py-2 flex justify-between rounded items-center gap-2 shadow" do %>
-  <div class="flex gap-1">
+  <div class="flex gap-1 min-w-0">
     <span class="text-gray-600 text-sm"><%= message.user.email %></span>
-    <span class="font-semibold text-sm"><%= message.message %></span>
+    <span class="font-semibold text-sm min-w-0 break-words"><%= message.message %></span>
   </div>
-  <div class="flex gap-3">
+  <div class="flex gap-3 shrink-0">
     <%= link_to edit_room_message_path(message.room, message), class: "text-sm font-medium bg-sky-800 text-white py-1 px-3 rounded" do %>
       Edit
     <% end %>

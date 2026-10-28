@@ -1,9 +1,9 @@
-<section class="flex flex-col gap-2 mt-10 items-center justify-center" id="<%= dom_id(room, :show) %>">
+<section class="flex flex-col gap-2 mt-10 items-center" id="<%= dom_id(room, :show) %>">
   <div class="flex flex-col">
-    <h3 class="font-bold text-3xl text-white"><%= room.name %> - Room</h3>
+    <h3 class="font-bold text-3xl text-white text-center break-words"><%= room.name %> - Room</h3>
   </div>
-  <section class="flex gap-5">
-    <div class="py-2 px-10 flex flex-col gap-1 items-center border-sky-600 border rounded-lg my-2 shadow-lg w-96">
+  <section class="flex flex-wrap justify-center gap-5 w-full">
+    <div class="py-2 px-10 flex flex-col gap-1 items-center border-sky-600 border rounded-lg my-2 shadow-lg basis-72 grow max-w-sm">
       <h3 class="text-white font-semibold text-center">Users in this room</h3>
       <% User.all.each do |user| %>
         <% next unless room.users.include?(user) %>
@@ -12,7 +12,7 @@
         </div>
       <% end %>
     </div>
-    <div class="py-2 px-10 flex flex-col gap-1 items-center border-sky-600 border rounded-lg my-2 shadow-lg w-96">
+    <div class="py-2 px-10 flex flex-col gap-1 items-center border-sky-600 border rounded-lg my-2 shadow-lg basis-72 grow max-w-sm">
       <h3 class="text-white font-semibold text-center">Add users</h3>
       <% User.all.each do |user| %>
         <% next if room.users.include?(user) %>
