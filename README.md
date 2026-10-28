@@ -1,6 +1,6 @@
 # chat-app
 
-A chat room app built with Ruby on Rails and Hotwire. Signed-in users create rooms, add other users to them and see their room list update without reloading the page.
+A chat room app built with Ruby on Rails and Hotwire. Signed-in users create rooms, add other users to them and chat, and every change shows up for the other members without reloading the page.
 
 ## Stack
 
@@ -14,16 +14,14 @@ A chat room app built with Ruby on Rails and Hotwire. Signed-in users create roo
 ## Features
 
 - **Accounts:** sign up, log in and log out with email and password (Devise).
-- **Rooms:** create, rename and delete rooms from the sidebar. The forms open in place with Turbo Frames, and a room needs a name.
+- **Rooms:** create, rename and delete rooms from the sidebar. The forms open in place with Turbo Frames, and a room needs a name. A room that has messages can't be deleted; a notice says so and hides itself after a few seconds.
 - **Members:** the user who creates a room joins it. From the room page, any member can add other users.
-- **Live sidebar:** "My rooms" lists the rooms you belong to. A deleted room disappears from every member's sidebar through a Turbo Stream broadcast.
+- **Messages:** send, edit and delete messages inside a room. Empty messages are rejected, and editing happens in place.
+- **Live updates:** every change is sent through Turbo Stream broadcasts over Action Cable. "My rooms" lists the rooms you belong to and updates when you join, rename or delete a room. Room pages update their name, member list and messages for everyone who has the room open.
 
 ## Status
 
-This is a practice project and it is not finished:
-
-- Rooms have no messages yet.
-- Room permissions are not enforced. Any signed-in user can open, rename or delete a room by its URL, even without being a member.
+This is a practice project. Room permissions are not enforced: any signed-in user can open, rename or delete a room by its URL, and edit or delete any message, even without being a member.
 
 ## Run locally
 
@@ -39,13 +37,15 @@ Open `http://localhost:3000` and sign up.
 
 `bin/dev` starts the Rails server and rebuilds the Tailwind CSS when a file changes. `bin/rails server` on its own doesn't rebuild it.
 
+If `public/assets` exists from an earlier `bin/rails assets:precompile`, the app serves that old CSS in development. Remove it with `bin/rails assets:clobber`.
+
 ## Tests
 
 ```
 bin/rails test
 ```
 
-Model and controller tests with Minitest and fixtures.
+Controller tests for rooms and messages with Minitest and fixtures.
 
 ## Lint
 
