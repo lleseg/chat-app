@@ -1,30 +1,38 @@
 # frozen_string_literal: true
 
 class MessagesController < ApplicationController
-  before_action :set_room, only: %i[create edit]
+  before_action :authenticate_user!
+  before_action :set_room
   before_action :set_message, only: %i[edit update destroy]
 
   def create
     @message = @room.messages.new(message_params)
     @message.user = current_user
 
-    respond_to do |format|
-      format.turbo_stream if @message.save
+    if @message.save
+      render turbo_stream: turbo_stream.replace("new_message_form", partial: "messages/form",
+                                                                    locals: { room: @room, message: Message.new })
+    else
+      render turbo_stream: turbo_stream.replace("new_message_form", partial: "messages/form",
+                                                                    locals: { room: @room, message: @message }),
+             status: 422
     end
   end
 
   def edit; end
 
   def update
-    respond_to do |format|
-      format.turbo_stream if @message.update(message_params)
+    if @message.update(message_params)
+      render turbo_stream: turbo_stream.replace(@message, partial: "messages/message", locals: { message: @message })
+    else
+      render :edit, status: 422
     end
   end
 
   def destroy
     @message.destroy
 
-    respond_to(&:turbo_stream)
+    render turbo_stream: turbo_stream.remove(@message)
   end
 
   private
@@ -34,7 +42,7 @@ class MessagesController < ApplicationController
   end
 
   def set_message
-    @message = Message.find(params[:id])
+    @message = @room.messages.find(params[:id])
   end
 
   def message_params
