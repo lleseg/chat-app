@@ -43,12 +43,22 @@ class RoomsControllerTest < ActionDispatch::IntegrationTest
     assert_turbo_stream action: "replace", target: dom_id(@room)
   end
 
-  test "should destroy room" do
+  test "should destroy room without messages" do
+    room = Room.create!(name: "Empty")
+
     assert_difference("Room.count", -1) do
+      delete room_url(room), as: :turbo_stream
+    end
+
+    assert_turbo_stream action: "remove", target: dom_id(room)
+    assert_turbo_stream action: "remove", target: dom_id(room, :show)
+  end
+
+  test "should not destroy room with messages" do
+    assert_no_difference("Room.count") do
       delete room_url(@room), as: :turbo_stream
     end
 
-    assert_turbo_stream action: "remove", target: dom_id(@room)
-    assert_turbo_stream action: "remove", target: dom_id(@room, :show)
+    assert_turbo_stream action: "update", target: "flash"
   end
 end

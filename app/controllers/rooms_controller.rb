@@ -51,7 +51,10 @@ class RoomsController < ApplicationController
 
   # DELETE /rooms/1 or /rooms/1.json
   def destroy
-    @room.destroy!
+    return if @room.destroy
+
+    render turbo_stream: turbo_stream.update("flash", partial: "shared/flash",
+                                                      locals: { alert: "This room has messages and can't be deleted." })
   end
 
   def add_user
