@@ -6,6 +6,7 @@ class Message < ApplicationRecord
 
   after_create_commit :room_messages_create
   after_update_commit :room_messages_update
+  after_destroy_commit :room_messages_destroy
 
   private
 
@@ -23,6 +24,13 @@ class Message < ApplicationRecord
       "room_messages_channel",
       partial: "messages/message",
       locals: { message: self },
+      target: "message_#{id}"
+    )
+  end
+
+  def room_messages_destroy
+    broadcast_remove_to(
+      "room_messages_channel",
       target: "message_#{id}"
     )
   end
